@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+
+<body ng-app="AddContactForm">
+
+    <div class="header">
+        <span class="headerText">My Contacts</span>
+    </div>
+
+    <div id="wrapper" ng-controller="addContactController">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <div class="button" ng-click="resetForm()">
+                        +New
+                    </div>
+                </li>
+                <li ng-repeat="contact in contacts" class="sideBarRow">
+                    <div class="name">
+                    {{contact.fName}} {{contact.lName}}
+                    </div>
+                    <div ng-click="editContact($index)" class="button sameLine">edit</div>
+                    &nbsp;
+                    <div ng-click="deleteContact($index)" class="button sameLine">delete</div>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="content">
+                            <div class="contentHeader">ADD OR EDIT CONTACT (FULL NAME)</div>
+                            <div class="form">
+                                <table width="100%">
+                                    <tr height="50px">
+                                        <td colspan="2"><input ng-model="fName" class="wide" type="text" placeholder="Enter First Name"/></td>
+                                    </tr>
+                                    <tr height="50px">
+                                        <td colspan="2"><input ng-model="lName" class="wide" type="text" placeholder="Enter Last Name"/></td>
+                                    </tr>
+                                     <tr height="50px">
+                                        <td colspan="2"><input ng-model="date" class="wide" type="date" placeholder="Enter Birth Date"/></td>
+                                    </tr>
+                                    <tr height="50px">
+                                        <td colspan="2"><input ng-model="company" class="wide" type="text" placeholder="Enter Company"/></td>
+                                    </tr>
+                                    <tr height="50px">
+                                        <td colspan="2"><input ng-model="email" class="wide" type="email" placeholder="Enter Email Address (example@domain.com)"/></td>
+                                    </tr>
+                                    <tr height="50px">
+                                        <td colspan="2"><input pattern='\d{3}[\-]\d{3}[\-]\d{4}' ng-model="phone" class="wide" type="tel" placeholder="Enter Mobile Number ex: 408-000-0000"/></td>
+                                    </tr>
+                                </table>    
+                            </div>
+                             <div class="buttonsSection">
+                                <div ng-click="saveContact()" class="button">Save</div>
+                                &nbsp;&nbsp;
+                                <div ng-click="resetForm()" class="button">Cancel</div>
+                             </div>
+                        </div>
+                        
+                        <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
+    <div class="footer">
+        <span class="footerText">Footer</span>
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
+    <!-- Script -->
+    <script src="js/script.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        $('input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="time"], input[type="week"]').each(function() {
+            var el = this, type = $(el).attr('type');
+            if ($(el).val() == '') $(el).attr('type', 'text');
+            $(el).focus(function() {
+                $(el).attr('type', type);
+                el.click();
+            });
+            $(el).blur(function() {
+                if ($(el).val() == '') $(el).attr('type', 'text');
+            });
+        });
+    });
+    
+    </script>
+
+</body>
+
+</html>
